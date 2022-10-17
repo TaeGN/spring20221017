@@ -10,6 +10,11 @@ import lombok.ToString;
 @Getter
 @Setter
 public class JavaBean4 {
-	private String name;
 	private String address;
+	private int score;
+	
 }
+
+
+
+

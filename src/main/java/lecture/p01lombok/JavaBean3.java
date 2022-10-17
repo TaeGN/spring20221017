@@ -6,10 +6,10 @@ import lombok.Setter;
 public class JavaBean3 {
 	@Getter
 	@Setter
-	private String company;
+	private String name;
 	
 	@Getter
 	@Setter
-	private int score;
-	private String location;
+	private int age;
+	
 }
