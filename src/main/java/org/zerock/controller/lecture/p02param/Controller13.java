@@ -1,6 +1,7 @@
 package org.zerock.controller.lecture.p02param;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.domain.lecture.JavaBean01;
 import org.zerock.domain.lecture.JavaBean02;
@@ -31,7 +32,7 @@ public class Controller13 {
 		System.out.println(bean2.getPassword());
 	}
 	@RequestMapping("sub03")
-	public void method3(JavaBean03 param3) {
+	public void method3(@ModelAttribute JavaBean03 param3) {
 		System.out.println("메소드 3번 일함");
 		
 		System.out.println(param3);
