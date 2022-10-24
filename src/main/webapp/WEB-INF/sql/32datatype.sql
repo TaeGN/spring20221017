@@ -25,9 +25,24 @@ INSERT INTO myTable01 (col1, col2)
 VALUES ('abc', 'abc'); -- not ok
 SELECT * FROM myTable01;
 
+-- 이름 : VARCHAR(50)
+-- 주소 : VARCHAR(255)
 
+-- CHAR : 고정길이 데이터 저장
+-- CHAR(size) : size만큼 저장됨
+CREATE TABLE myTable02 (
+	col1 VARCHAR(3),
+    col2 CHAR(3)
+);
+INSERT INTO myTable02 (col1, col2)
+VALUES ('abc', 'abc'); -- ok
+INSERT INTO myTable02 (col1, col2)
+VALUES ('abc', 'abcd'); -- not ok
+INSERT INTO myTable02 (col1, col2)
+VALUES ('ab', 'ab'); -- ok ('ab', 'ab ')
+SELECT * FROM myTable02;
 
-
+SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH';
 
 
 
