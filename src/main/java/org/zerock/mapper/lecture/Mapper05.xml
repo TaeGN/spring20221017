@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.lecture.Mapper05">
+	<!-- <select id="getOrder" resultType="org.zerock.domain.lecture.JavaBean07"> 
+		SELECT OrderId id, OrderDate date, e.EmployeeId employeeId, FirstName employeeFirstName, 
+		LastName employeeLastName FROM Order o JOIN Employees e ON o.EmployeeId = 
+		e.EmployeeId WHERE o.OrderId = 10248 </select> -->
+
+<!-- 	<select id="getOrder2" resultMap="orderMap">
+		SELECT
+		o.OrderId id,
+		o.OrderDate date,
+		e.EmployeeId employeeId,
+		e.FirstName employeeFirstName,
+		e.LastName employeeLastName
+		FROM Order o JOIN Employees e
+		ON o.EmployeeId = e.EmployeeId
+		WHERE o.OrderId = 10248
+	</select>
+
+	<resultMap type="org.zerock.domain.lecture.JavaBean08"
+		id="orderMap">
+		<result column="id" property="id" />
+		<result column="date" property="date" />
+		<association property="employee">
+			<result column="employeeId" property="id" />
+			<result column="employeeFirstName" property="firstName" />
+			<result column="employeeLastName" property="lastName" />
+		</association>
+	</resultMap> -->
+
+	<select id="getProduct" resultMap="example">
+		SELECT
+			p.productId id,
+			p.productName name,
+			p.price price,
+			s.supplierId supplierId,
+			s.supplierName supplierName,
+			s.phone phone
+		FROM
+			Products p JOIN Suppliers s
+			ON p.SupplierID = s.SupplierID
+		WHERE
+			p.ProductID = 10
+	</select>
+
+	<resultMap type="org.zerock.domain.lecture.JavaBean09"
+		id="example">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="price" property="price" />
+		<association property="supplier">
+			<id column="supplierId" property="id" />
+			<result column="supplierName" property="name" />
+			<result column="phone" property="phone" />
+		</association>
+	</resultMap>
+		
+
+
+</mapper>
