@@ -10,6 +10,11 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+<c:if test="${message != null }">
+	<div>
+		${message }
+	</div>
+</c:if>
 <h1>공급자 정보 입력</h1>
 <form action="" method="post">
 	<input type="text" placeholder="이름" name="name" value="java"> <br>
