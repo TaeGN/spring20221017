@@ -1,6 +1,12 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="active" %>
+<style>
+#searchTypeSelect {
+	width: auto;
+}
+</style>
+
 <c:url value="/board/list" var="listLink"></c:url>
 <c:url value="/board/register" var="registerLink"></c:url>
 
@@ -20,6 +26,15 @@
         </li>
       </ul>
       <form action="${listLink }" class="d-flex" role="search">
+      
+      	<!-- select.form-select>option*4 -->
+      	<select name="t" id="searchTypeSelect" class="form-select" >
+      		<option value="all">전체</option>
+      		<option value="title" ${param.t eq 'title' ? 'selected' : '' }>제목</option>
+      		<option value="content" ${param.t eq 'content' ? 'selected' : '' }>본문</option>
+      		<option value="writer" ${param.t eq 'writer' ? 'selected' : '' }>작성자</option>
+      	</select>
+      	
         <input value="${param.q }" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
         <button class="btn btn-outline-success" type="submit">
         	<i class="fa-solid fa-magnifying-glass"></i>

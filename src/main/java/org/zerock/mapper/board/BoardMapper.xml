@@ -17,9 +17,19 @@
 		inserted
 	FROM Board
 	WHERE 
-		title LIKE #{keyword}
-		OR content LIKE #{keyword}
-		OR writer LIKE #{keyword}
+		<trim prefixOverrides="OR">
+			<if test="type == 'all' or type == 'title'">
+				OR title LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'content'">
+				OR content LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'writer'">
+				OR writer LIKE #{keyword}
+			</if>
+		</trim>
 	ORDER BY id DESC
 	LIMIT #{offset}, #{records}
 	</select>
@@ -27,6 +37,20 @@
 	<select id="countAll" resultType="int">
 	SELECT Count(*) 
 	FROM Board
+	WHERE 
+		<trim prefixOverrides="OR">
+			<if test="type == 'all' or type == 'title'">
+				OR title LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'content'">
+				OR content LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'writer'">
+				OR writer LIKE #{keyword}
+			</if>
+		</trim>	
 	</select>
 	
 	
