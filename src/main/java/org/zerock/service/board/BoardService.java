@@ -33,6 +33,21 @@ public class BoardService {
 		int rightPageNumber = leftPageNumber + 9;
 		rightPageNumber = (int) Math.min(lastPageNumber, rightPageNumber);
 		
+		// 이전버튼 유무
+		boolean hasPrevButton = page > 10;
+		// 다음버튼 유무
+		boolean hasNextButton = page <= (lastPageNumber - 1) / 10 * 10;
+		
+		// 이전버튼 눌렀을 떄 가는 페이지 번호
+		int jumpPrevPageNumber = (page - 1) / 10 * 10 - 9;
+		int jumpNextPageNumber = (page - 1) / 10 * 10 + 11;
+		
+		
+		pageInfo.setHasNextButton(hasNextButton);
+		pageInfo.setHasPrevButton(hasPrevButton);
+		pageInfo.setJumpNextPageNumber(jumpNextPageNumber);
+		pageInfo.setJumpPrevPageNumber(jumpPrevPageNumber);
+		
 		pageInfo.setCurrentPageNumber(page);
 		pageInfo.setLeftPageNumber(leftPageNumber);
 		pageInfo.setRightPageNumber(rightPageNumber);
