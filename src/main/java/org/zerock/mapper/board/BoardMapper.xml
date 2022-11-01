@@ -17,6 +17,12 @@
 		inserted
 	FROM Board
 	ORDER BY id DESC
+	LIMIT #{offset}, #{records}
+	</select>
+	
+	<select id="countAll" resultType="int">
+	SELECT Count(*) 
+	FROM Board
 	</select>
 	
 	
