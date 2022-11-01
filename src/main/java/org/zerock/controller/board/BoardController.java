@@ -44,9 +44,10 @@ public class BoardController {
 	@GetMapping("list")
 	public void list(
 			@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "q", defaultValue = "") String keyword,
 			PageInfo pageInfo,
 			Model model) {
-		List<BoardDto> list = service.listBoard(page, pageInfo);
+		List<BoardDto> list = service.listBoard(page, keyword, pageInfo);
 		model.addAttribute("boardList", list);
 	}
 	

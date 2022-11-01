@@ -10,7 +10,7 @@ public interface BoardMapper {
 	
 	int update(BoardDto board);
 
-	List<BoardDto> list(int offset, int records);
+	List<BoardDto> list(int offset, int records, String keyword);
 
 	BoardDto select(int id);
 

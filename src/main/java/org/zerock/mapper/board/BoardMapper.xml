@@ -16,6 +16,10 @@
 		writer,
 		inserted
 	FROM Board
+	WHERE 
+		title LIKE #{keyword}
+		OR content LIKE #{keyword}
+		OR writer LIKE #{keyword}
 	ORDER BY id DESC
 	LIMIT #{offset}, #{records}
 	</select>

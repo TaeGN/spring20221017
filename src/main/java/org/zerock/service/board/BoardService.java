@@ -22,7 +22,7 @@ public class BoardService {
 		return mapper.update(board);
 	}
 
-	public List<BoardDto> listBoard(int page, PageInfo pageInfo) {
+	public List<BoardDto> listBoard(int page, String keyword, PageInfo pageInfo) {
 		int records = 10;
 		int offset = (page - 1) * records ;
 		
@@ -53,7 +53,7 @@ public class BoardService {
 		pageInfo.setRightPageNumber(rightPageNumber);
 		pageInfo.setLastPageNumber(lastPageNumber);
 		
-		return mapper.list(offset, records);
+		return mapper.list(offset, records, "%" + keyword + "%");
 	}
 
 	public BoardDto get(int id) {

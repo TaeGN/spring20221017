@@ -59,13 +59,14 @@
 		<!-- Pagenation -->
 		<div class="row">
 			<div class="col">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
+				<nav class="mt-3" aria-label="Page navigation example">
+				  <ul class="pagination justify-content-center">
 				  
 				  <!-- 현재 페이지 1 아니면 맨앞버튼 생성 -->
 				  <c:if test="${pageInfo.currentPageNumber ne 1 }">
 				  	<c:url value="/board/list" var="listLink">
 				  		<c:param name="page" value="1"></c:param>
+				  		<c:param name="q" value="${param.q }"></c:param>
 				  	</c:url>
 				  	<li class="page-item">
 					  	<a class="page-link" href="${listLink }">
@@ -78,6 +79,7 @@
 				  <c:if test="${pageInfo.hasPrevButton }">
 				  	<c:url value="/board/list" var="listLink">
 				  		<c:param name="page" value="${pageInfo.jumpPrevPageNumber }"></c:param>
+				  		<c:param name="q" value="${param.q }"></c:param>
 				  	</c:url>
 				  	<li class="page-item">
 					  	<a class="page-link" href="${listLink }">
@@ -89,6 +91,7 @@
 				    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
 					    <c:url value="/board/list" var="listLink">
 					    	<c:param name="page" value="${pageNumber }"></c:param>
+					    	<c:param name="q" value="${param.q }"></c:param>
 					    </c:url>
 				    	<li class="page-item
 				    		${pageInfo.currentPageNumber eq pageNumber ? 'active' : '' }
@@ -99,6 +102,7 @@
 				  <c:if test="${pageInfo.hasNextButton }">
 				  	<c:url value="/board/list" var="listLink">
 				  		<c:param name="page" value="${pageInfo.jumpNextPageNumber }"></c:param>
+				  		<c:param name="q" value="${param.q }"></c:param>
 				  	</c:url>
 				  	<li class="page-item">
 				  		<a class="page-link" href="${listLink }">
@@ -111,6 +115,7 @@
 				  <c:if test="${pageInfo.currentPageNumber ne pageInfo.lastPageNumber }">
 				  	<c:url value="/board/list" var="listLink">
 				  		<c:param name="page" value="${pageInfo.lastPageNumber }"></c:param>
+				  		<c:param name="q" value="${param.q }"></c:param>
 				  	</c:url>
 				  	<li class="page-item">
 					  	<a class="page-link" href="${listLink }">
