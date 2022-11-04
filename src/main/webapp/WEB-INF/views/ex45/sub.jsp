@@ -33,9 +33,28 @@
 	<button id="btn10">/ex45/sub10 응답 본문 </button>
 	<br>
 	<button id="btn11">/ex45/sub11 응답 본문 </button>
+	<br>
+	<button id="btn13">/ex45/sub13 응답 map to json</button>
+	<br>
+	<button id="btn14">/ex45/sub14 응답 map to json , complex</button>
+	<br>
+	<button id="btn15">/ex45/sub15 응답 {"car":"tesla", "model":"avante", "color":["blue", "red"]}</button>
+	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script>
 const ctx = "${pageContext.request.contextPath}";
+
+document.querySelector("#btn15").addEventListener("click", function() {
+	fetch(ctx + "/ex45/sub15");
+});
+
+document.querySelector("#btn14").addEventListener("click", function() {
+	fetch(ctx + "/ex45/sub14");
+});
+
+document.querySelector("#btn13").addEventListener("click", function() {
+	fetch(ctx + "/ex45/sub13");
+});
 
 document.querySelector("#btn11").addEventListener("click", function() {
 	fetch(ctx + "/ex45/sub11");

@@ -3,6 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.lecture.Mapper11">
+
+	<delete id="deleteSupplier">
+	DELETE FROM Suppliers WHERE SupplierID = #{id}
+	</delete>
+	
+	<delete id="deleteCustomer">
+	DELETE FROM Customers WHERE CustomerId = #{id}
+	</delete>
+	
+	<insert id="insertSupplier" keyProperty="id" useGeneratedKeys="true">
+	INSERT INTO Suppliers (SupplierName, ContactName, Address, City, PostalCode, Country, Phone)
+	VALUES (#{name}, #{contactName}, #{address}, #{city}, #{postalCode}, #{country}, #{phone})
+	</insert>
+	
+
+	<insert id="insertCustomer" keyProperty="id" useGeneratedKeys="true">
+	INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+	VALUES (#{name}, #{contactName}, #{address}, #{city}, #{postalCode}, #{country})
+	</insert>	
+	
 	
 	<select id="getCustomerById" resultType="org.zerock.domain.lecture.JavaBean18">
 SELECT
