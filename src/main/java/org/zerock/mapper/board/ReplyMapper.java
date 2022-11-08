@@ -14,4 +14,6 @@ public interface ReplyMapper {
 	ReplyDto selectById(int id);
 
 	int update(ReplyDto reply);
+
+	int deleteByBoardId(int id);
 }

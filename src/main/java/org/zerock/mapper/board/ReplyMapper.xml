@@ -5,6 +5,12 @@
   
 <mapper namespace="org.zerock.mapper.board.ReplyMapper">
 
+	<delete id="deleteByBoardId">
+	DELETE FROM Reply
+	WHERE boardId = #{id}
+	</delete>
+	
+
 	<update id="update">
 	UPDATE Reply
 	SET
