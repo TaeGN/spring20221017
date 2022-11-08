@@ -12,7 +12,41 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+
 	<my:navBar active="register"></my:navBar>
+	<div class="container-md">
+		<div class="row">
+			<div class="col">
+				<h1>게시물 작성</h1>
+				<form action="" method="post" enctype="multipart/form-data">
+					<div class="mb-3">
+						<label for="" class="form-label">제목</label>
+						<input type="text" class="form-control" name="title">
+					</div>
+					<div class="mb-3">
+						<label for="" class="form-label">본문</label>
+						<textarea rows="5" class="form-control" name="content"></textarea>
+					</div>
+					
+					<div class="mb-3">
+						<label for="" class="form-label">파일</label>
+						<input type="file" accept="image/*" class="form-control" name="file">
+					</div>
+					
+					<div class="mb-3">
+						<label for="" class="form-label">작성자</label>
+						<input type="text" class="form-control" name="writer">
+					</div>
+					
+					<input class="btn btn-primary" type="submit" value="등록">
+				
+				
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<%-- <my:navBar active="register"></my:navBar>
 		<c:url value="/board/modify" var="modifyLink">
 		<c:param name="id" value="${board.id }"></c:param>
 	</c:url>
@@ -20,7 +54,31 @@
 		<div class="row">
 			<div class="col">	
 				<h1>게시물 작성</h1>
-				<form class="mb-3" id="registerForm" action="" method="post">
+				<form action="" method="post" enctype="multipart/form-data">
+					<div class="mb-3">
+						<label for="" class="form-label">제목</label>
+						<input type="text" class="form-control" name="title">
+					</div>
+					<div class="mb-3">
+						<label for="" class="form-label">본문</label>
+						<textarea rows="5" class="form-control" name="content"></textarea>
+					</div>
+					
+					<div class="mb-3">
+						<label for="" class="form-label">파일</label>
+						<input type="file" accept="image/*" class="form-control" name="file">
+					</div>
+					
+					<div class="mb-3">
+						<label for="" class="form-label">작성자</label>
+						<input type="text" class="form-control" name="writer">
+					</div>
+					
+					<input class="btn btn-primary" type="submit" value="등록">
+				
+				
+				</form> --%>
+				<!-- <form class="mb-3" id="registerForm" action="" method="post" enctype="application/x-www-form-urlencoded">
 					<label for="" class="form-label">제목</label> 
 					<input class="form-control" type="text" name="title"> <br>
 					<label for="" class="form-label">저자</label> 
@@ -28,9 +86,9 @@
 					<label for="" class="form-label">본문</label> 
 					<textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea> <br>
 				</form>
-				<input type="submit" value="등록" data-bs-toggle="modal" data-bs-target="#registerModal">
+				<input type="submit" value="등록" data-bs-toggle="modal" data-bs-target="#registerModal"> -->
 				
-				<!-- registerModal -->
+				<!-- <!-- registerModal -->
 				<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
@@ -50,7 +108,7 @@
 				</div>	
 			</div>
 		</div>
-	</div>		
+	</div>		 -->
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script>
