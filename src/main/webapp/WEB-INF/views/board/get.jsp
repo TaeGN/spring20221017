@@ -40,7 +40,11 @@
 				
 				<!-- 이미지 출력 -->
 				<div>
-				<img alt="" src="/image/${board.id }/${board.fileName">
+					<c:forEach items="${board.fileName }" var="name">
+						<div>
+							<img class="img-fluid img-thumbnail" alt="" src="/image/${board.id }/${name}">
+						</div>
+					</c:forEach>
 				</div>
 			
 				<div class="mb-3">

@@ -30,7 +30,7 @@ public class BoardController {
 	@PostMapping("register")
 	public String register(
 			BoardDto board, 
-			MultipartFile file,
+			MultipartFile[] files,
 			RedirectAttributes rttr) {
 		// * 파일업로드
 				// 1. web.xml 
@@ -38,10 +38,14 @@ public class BoardController {
 				// 2. form 에 enctype="multipart/form-data" 속성 추가 
 				// 3. Controller의 메소드 argument type : MultipartFile 
 				
-				// request param 수집/가공
-		System.out.println(file.getOriginalFilename());
+		// request param 수집/가공
+//		System.out.println(files.length);
+//		for (MultipartFile file : files) {
+//			System.out.println(file.getOriginalFilename());
+//		}
 		
-		int cnt = service.register(board, file);
+		// business logic
+		int cnt = service.register(board, files);
 		
 		if(cnt == 1) {
 			rttr.addFlashAttribute("message", "새 게시물이 등록되었습니다.");

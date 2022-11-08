@@ -3,6 +3,7 @@ package org.zerock.domain.board;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class BoardDto {
 	private String content;
 	private String writer;
 	private LocalDateTime inserted;
+	private List<String> fileName;
 	private int countReply;
 	
 	public String getAgo() {

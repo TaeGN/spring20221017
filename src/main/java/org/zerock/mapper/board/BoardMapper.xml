@@ -65,16 +65,31 @@
 	</select>
 	
 	
-	<select id="select" resultType="org.zerock.domain.board.BoardDto">
+	<select id="select" resultMap="boardMap">
 	SELECT
-		id,
-		title,
-		content,
-		writer,
-		inserted
-	FROM Board
-	WHERE id = #{id}	
+		b.id,
+		b.title,
+		b.content,
+		b.writer,
+		b.inserted,
+		f.id fileId,
+        f.name fileName
+	FROM Board b
+    LEFT JOIN File f
+    ON b.id = f.boardId
+	WHERE b.id = #{id}	
 	</select>
+	
+	<resultMap type="org.zerock.domain.board.BoardDto" id="boardMap">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="writer" property="writer"/>
+		<result column="inserted" property="inserted"/>
+		<collection property="fileName" ofType="string">
+			<result property="fileName" column="fileName"/>
+		</collection>
+	</resultMap>
 	
 	
 	<update id="update">
