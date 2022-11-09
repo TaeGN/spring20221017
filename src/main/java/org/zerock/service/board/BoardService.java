@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.board.BoardDto;
 import org.zerock.domain.board.PageInfo;
@@ -21,7 +22,15 @@ public class BoardService {
 	@Autowired
 	private ReplyMapper replyMapper;
 	
-	public int update(BoardDto board) {
+	public int update(BoardDto board, MultipartFile[] files) {
+		for(MultipartFile file)
+		
+		// File table에 해당파일명 지우기
+		
+		// File table에 파일명 추가
+		
+		// 저장소에 실제 파일 추가
+		
 		return boardMapper.update(board);
 	}
 	
@@ -96,6 +105,22 @@ public class BoardService {
 	
 	@Transactional
 	public int remove(int id) {
+		// 저장소의 파일과 폴더 지우기
+		String path = "C:\\Users\\user\\Desktop\\study\\upload\\prj1\\board\\" + id;
+		File folder = new File(path);
+		
+		File[] listFiles = folder.listFiles();
+		
+		for(File file : listFiles) {
+			file.delete();
+		}
+		
+		folder.delete();
+				
+		
+		// db 파일 records 지우기
+		boardMapper.deleteFileByBoardId(id);
+		
 		// 게시물 댓글들 지우기
 		replyMapper.deleteByBoardId(id);
 		

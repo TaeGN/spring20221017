@@ -82,7 +82,19 @@ public class BoardController {
 	}
 	
 	@PostMapping("modify")
-	public String modify(BoardDto board, RedirectAttributes rttr) {
+	public String modify(
+			BoardDto board, 
+			MultipartFile[] files,
+			RedirectAttributes rttr) {
+		
+		if(files != null) {
+			System.out.println(files.length);
+			for(MultipartFile file : files) {
+				System.out.println(file.getOriginalFilename());
+			}
+		}
+		
+		
 		int cnt = service.update(board);
 		
 		if(cnt == 1) {

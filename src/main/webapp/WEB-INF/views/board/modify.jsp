@@ -18,25 +18,49 @@
 			<div class="col">	
 				<!-- 게시물 수정 -->
 				<h1>${board.id }번 게시물 수정</h1>
-				<form class="mb-3" id="modifyForm" action="" method="post">
+				<form id="modifyForm" action="" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${board.id }">
-					<label for="" class="form-label">제목</label>
-					<input class="form-control" type="text" name="title" value="${board.title }" > <br>
-					<label for="" class="form-label">본문</label>
-					<textarea class="form-control" name="content" id="" cols="30" rows="10" >${board.content }</textarea> <br>
-					<label for="" class="form-label">작성자</label>
-					<input class="form-control" type="text" name="writer" value="${board.writer }" > <br>
-					<label for="" class="form-label">작성일시</label>
-					<input class="form-control" type="datetime-local" value="${board.inserted }" readonly="readonly" > <br>
+					<!-- .mb-3*4>label.form-label+input.form-control -->
+					<div class="mb-3">
+						<label for="" class="form-label">제목</label>
+						<input type="text" name="title" class="form-control" value="${board.title }">
+					</div>
+					<div class="mb-3">
+						<label for="" class="form-label">본문</label>
+						<textarea rows="5" name="content" class="form-control">${board.content }</textarea>
+					</div>
+					
+					<%-- 이미지 출력 --%>
+					<div class="mb-3">
+						<c:forEach items="${board.fileName }" var="name">
+							<div>
+								<img class="img-fluid img-thumbnail" src="/image/${board.id }/${name}" alt="">
+							</div>
+						</c:forEach>		
+					</div>
+					
+					<div class="mb-3">
+						<label for="" class="form-label">파일 추가</label>
+						<input multiple type="file" accept="image/*" class="form-control" name="files">
+					</div>
+					
+					<div class="mb-3">
+						<label for="" class="form-label">작성자</label>
+						<input type="text" name="writer" class="form-control" value="${board.writer }">
+					</div>
+					<div class="mb-3">
+						<label for="" class="form-label">작성일시</label>
+						<input type="text" class="form-control" value="${board.inserted }" readonly>
+					</div>
 				</form>
-				<input type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
+				<input class="btn btn-warning"  type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
 				
 				<!-- 게시물 삭제 -->	
 				<c:url value="/board/remove" var="removeLink"></c:url>
 				<form id="removeForm" action="${removeLink }" method="post">
 				<input type="hidden" name="id" value="${board.id }">
 				</form>
-				<input type="submit" value="삭제" data-bs-toggle="modal" data-bs-target="#removeModal">
+				<input class="btn btn-danger" type="submit" value="삭제" data-bs-toggle="modal" data-bs-target="#removeModal">
 			
 			
 				<!-- modifyModal -->
