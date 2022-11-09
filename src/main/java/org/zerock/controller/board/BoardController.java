@@ -84,7 +84,8 @@ public class BoardController {
 	@PostMapping("modify")
 	public String modify(
 			BoardDto board, 
-			MultipartFile[] files,
+			@RequestParam("files") MultipartFile[] addFiles,
+			@RequestParam(name = "removeFiles", required = false) List<String> removeFiles,
 			RedirectAttributes rttr) {
 		
 //		if(files != null) {

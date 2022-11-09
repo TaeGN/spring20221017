@@ -24,39 +24,49 @@ public class BoardService {
 	private ReplyMapper replyMapper;
 	
 	public int update(BoardDto board, MultipartFile[] addFiles, List<String> removeFiles) {
-		// removeFiles 에 있는 파일명으로 
+		int boardId = board.getId();
 		
+		// removeFiles 에 있는 파일명으로 
+		if(removeFiles != null) {
+			for (String fileName : removeFiles) {
 				// 1. File 테이블에서 record 지우기
-				
+				boardMapper.deleteFileByBoardIdAndFileName(boardId, fileName);
 				// 2. 저장소에 실제 파일 지우기
+				String path = "C:\\Users\\user\\Desktop\\study\\upload\\prj1\\board\\" + boardId + "\\" + fileName;
+				File file = new File(path);
 				
+				file.delete();
+			}
+		}
+			
+		
+		for (MultipartFile file : addFiles) {
+			if (file != null && file.getSize() > 0) {
+				String name = file.getOriginalFilename();
+				// File table에 해당파일명 지우기
+				boardMapper.deleteFileByBoardIdAndFileName(boardId, name);
 				
-				for (MultipartFile file : addFiles) {
-					if (file != null && file.getSize() > 0) {
-						int boardId = board.getId();
-						String name = file.getOriginalFilename();
-						// File table에 해당파일명 지우기
-						boardMapper.deleteFileByBoardIdAndFileName(boardId, name);
-						
-						// File table에 파일명 추가
-						boardMapper.insertFile(boardId, name);
-						
-						// 저장소에 실제 파일 추가
-						File folder = new File("C:\\Users\\user\\Desktop\\study\\upload\\prj1\\board\\" + board.getId());
-						folder.mkdirs();
-						
-						File dest = new File(folder, name);
-						
-						try {
-							file.transferTo(dest);
-						} catch (Exception e) {
-							// @Transactional은 RuntimeException에서만 rollback 됨
-							e.printStackTrace();
-							throw new RuntimeException(e);
-						}
-					}
-					
+				// File table에 파일명 추가
+				boardMapper.insertFile(boardId, name);
+				
+				// 저장소에 실제 파일 추가
+				File folder = new File("C:\\Users\\user\\Desktop\\study\\upload\\prj1\\board\\" + board.getId());
+				folder.mkdirs();
+				
+				File dest = new File(folder, name);
+				
+				try {
+					file.transferTo(dest);
+				} catch (Exception e) {
+					// @Transactional은 RuntimeException에서만 rollback 됨
+					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
+			}
+			
+		}				
+				
+				
 		
 		
 		return boardMapper.update(board);
