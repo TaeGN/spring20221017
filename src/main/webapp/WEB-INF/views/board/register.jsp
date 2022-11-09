@@ -18,14 +18,14 @@
 		<div class="row">
 			<div class="col">
 				<h1>게시물 작성</h1>
-				<form action="" method="post" enctype="multipart/form-data">
+				<form id="registerForm1" action="" method="post" enctype="multipart/form-data">
 					<div class="mb-3">
 						<label for="" class="form-label">제목</label>
-						<input type="text" class="form-control" name="title">
+						<input type="text" class="form-control" name="title" required="required">
 					</div>
 					<div class="mb-3">
 						<label for="" class="form-label">본문</label>
-						<textarea rows="5" class="form-control" name="content"></textarea>
+						<textarea rows="5" class="form-control" name="content" required="required"></textarea>
 					</div>
 					
 					<div class="mb-3">
@@ -35,49 +35,19 @@
 					
 					<div class="mb-3">
 						<label for="" class="form-label">작성자</label>
-						<input type="text" class="form-control" name="writer">
+						<input type="text" class="form-control" name="writer" required="required">
 					</div>
 					
-					<input class="btn btn-primary" type="submit" value="등록">
-				
+					<div id="submitErrorMessage1"></div>
+					
+					<input id="submitButton1" data-bs-toggle="modal" data-bs-target="#registerModal" class="btn btn-primary" type="submit" value="등록">
+					
 				
 				</form>
 			</div>
 		</div>
 	</div>
 
-	<%-- <my:navBar active="register"></my:navBar>
-		<c:url value="/board/modify" var="modifyLink">
-		<c:param name="id" value="${board.id }"></c:param>
-	</c:url>
-	<div class="container-md">
-		<div class="row">
-			<div class="col">	
-				<h1>게시물 작성</h1>
-				<form action="" method="post" enctype="multipart/form-data">
-					<div class="mb-3">
-						<label for="" class="form-label">제목</label>
-						<input type="text" class="form-control" name="title">
-					</div>
-					<div class="mb-3">
-						<label for="" class="form-label">본문</label>
-						<textarea rows="5" class="form-control" name="content"></textarea>
-					</div>
-					
-					<div class="mb-3">
-						<label for="" class="form-label">파일</label>
-						<input type="file" accept="image/*" class="form-control" name="file">
-					</div>
-					
-					<div class="mb-3">
-						<label for="" class="form-label">작성자</label>
-						<input type="text" class="form-control" name="writer">
-					</div>
-					
-					<input class="btn btn-primary" type="submit" value="등록">
-				
-				
-				</form> --%>
 				<!-- <form class="mb-3" id="registerForm" action="" method="post" enctype="application/x-www-form-urlencoded">
 					<label for="" class="form-label">제목</label> 
 					<input class="form-control" type="text" name="title"> <br>
@@ -88,8 +58,8 @@
 				</form>
 				<input type="submit" value="등록" data-bs-toggle="modal" data-bs-target="#registerModal"> -->
 				
-				<!-- <!-- registerModal -->
-				<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<!-- registerModal -->
+				<!-- <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -112,9 +82,26 @@
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script>
-	document.querySelector("#registerConfirmButton").addEventListener("click", function() {
-		document.querySelector("#registerForm").submit();
+	document.querySelector("#submitButton1").addEventListener("click", e => {
+		e.preventDefault();
+		
+		let titleValue = document.querySelector(`#registerForm1 input[name="title"]`).value;
+		let contentValue = document.querySelector(`#registerForm1 textarea[name="content"]`).value;
+		let writerValue = document.querySelector(`#registerForm1 input[name="writer"]`).value;
+		
+		if(titleValue.trim() != ""
+				&& contentValue.trim() != ""
+				&& writerValue.trim() != "") {
+			document.querySelector("#registerForm1").submit();
+		} else {
+			// 적절한 메세지 표시....
+			document.querySelector("#submitErrorMessage1").innerText = "다시 입력해 주세요";
+		}
 	});
+	
+/* 	document.querySelector("#registerConfirmButton").addEventListener("click", function() {
+		document.querySelector("#registerForm").submit();
+	}); */
 </script>
 </body>
 </html>

@@ -35,10 +35,13 @@
 		b.title,
 		b.writer,
 		b.inserted,
-		COUNT(r.id) countReply
+		COUNT(DISTINCT r.id) countReply,
+        COUNT(DISTINCT f.id) countFile
 	FROM Board b
 	LEFT JOIN Reply r
 	ON b.id = r.boardId
+	LEFT JOIN File f
+    ON b.id = f.boardId
 	WHERE 
 		<trim prefixOverrides="OR">
 			<if test="type == 'all' or type == 'title'">
