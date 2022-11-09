@@ -2,6 +2,7 @@ package org.zerock.mapper.board;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.board.BoardDto;
 
 public interface BoardMapper {
@@ -21,5 +22,8 @@ public interface BoardMapper {
 	int insertFile(int id, String fileName);
 	
 	int deleteFileByBoardId(int id);
+	
+	int deleteFileByBoardIdAndFileName(int id, String fileName);
+
 
 }

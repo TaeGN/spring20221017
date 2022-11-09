@@ -33,8 +33,17 @@
 					<%-- 이미지 출력 --%>
 					<div class="mb-3">
 						<c:forEach items="${board.fileName }" var="name">
-							<div>
-								<img class="img-fluid img-thumbnail" src="/image/${board.id }/${name}" alt="">
+							<div class="row">
+								<div class="col-2">
+									<%-- 삭제 여부 체크박스 --%>
+									삭제
+									<input type="checkbox" name="removeFiles" value="${name }">
+								</div>
+								<div class="col-10">
+									<div>
+										<img class="img-fluid img-thumbnail" src="/image/${board.id }/${name}" alt="">
+									</div>
+								</div>
 							</div>
 						</c:forEach>		
 					</div>
