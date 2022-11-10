@@ -62,10 +62,11 @@
 		</div>
 	</div>	
 	
-	<!-- 댓글 메세지 토스트 -->
-	<div id="replyMessageToast" class="toast align-items-center fixed-top" role="alert" aria-live="assertive" aria-atomic="true">
+	<%-- 댓글 메시지 토스트 --%>
+	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
 	  <div class="d-flex">
-	    <div class="toast-body" id="replyMessage1">
+	    <div id="replyMessage1" class="toast-body">
+	      Hello, world! This is a toast message.
 	    </div>
 	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 	  </div>
@@ -244,7 +245,7 @@ function removeReply(replyId) {
 	.then(data => {
 		console.log(data.message);
 		document.querySelector("#replyMessage1").innerText = data.message;
-		toast.show()
+		toast.show();
 	})	
 	.then(() => listReply());
 };
@@ -270,6 +271,7 @@ document.querySelector("#replySendButton1").addEventListener("click", function()
 	.then(data => {
 		document.querySelector("#replyInput1").value = "";
 		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
 	})
 	.then(() => listReply());
 });
