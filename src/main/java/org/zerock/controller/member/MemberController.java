@@ -51,32 +51,47 @@ public class MemberController {
 	
 
 	@PostMapping("modify")
-	public String modify(MemberDto member, RedirectAttributes rttr) {
-		int cnt = service.modify(member);
+	public String modify(MemberDto member, String oldPassword, RedirectAttributes rttr) {
+		MemberDto oldMember = service.getById(member.getId());
 		
 		rttr.addAttribute("id", member.getId());
-		if (cnt == 1) {
-			rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
-			return "redirect:/member/info";
+		
+		if(oldPassword.equals(oldMember.getPassword())) {
+			int cnt = service.modify(member);
+			if (cnt == 1) {
+				rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
+				return "redirect:/member/info";
+			} else {
+				rttr.addFlashAttribute("message", "회원 정보가 수정되지 않았습니다.");
+				return "redirect:/member/modify";
+			}
 		} else {
-			rttr.addFlashAttribute("message", "회원 정보가 수정되지 않았습니다.");
+			rttr.addFlashAttribute("message", "암호가 일치하지 않습니다.");
 			return "redirect:/member/modify";
 		}
 	}
 	
 	@PostMapping("remove")
-	public String remove(String id, RedirectAttributes rttr) {
+	public String remove(String id, String oldPassword, RedirectAttributes rttr) {
+		MemberDto oldMember = service.getById(id);
 		
-		int cnt = service.remove(id);
-		
-		if(cnt == 1) {
-			rttr.addFlashAttribute("message", id + "회원 정보가 삭제되었습니다.");
+		if(oldPassword.equals(oldMember.getPassword())) {
+			int cnt = service.remove(id);
+			
+			if(cnt == 1) {
+				rttr.addFlashAttribute("message", id + "회원 정보가 삭제되었습니다.");
+			} else {
+				rttr.addFlashAttribute("message", "회원 정보가 삭제되지 않았습니다.");
+			}
+			
+			return "redirect:/member/list";
 		} else {
-			rttr.addFlashAttribute("message", "회원 정보가 삭제되지 않았습니다.");
+			rttr.addAttribute("id", id);
+			rttr.addFlashAttribute("message", "암호가 일치하지 않습니다.");
+			return "redirect:/member/modify";
 		}
-		
-		return "redirect:/member/list";
 	}
+	
 }
 
 

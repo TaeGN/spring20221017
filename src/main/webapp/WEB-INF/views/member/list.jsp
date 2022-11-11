@@ -13,32 +13,33 @@
 </head>
 <body>
 	<my:navBar active="memberList"></my:navBar>
-	<div class="container md-3">
+	
+	<div class="container-md">
 		<div class="row">
 			<div class="col">
-				<c:if test="${not empty message }">
-					<div class="alert alert-success">
-						${message }
-					</div>
-				</c:if>
 				<h1>회원 목록</h1>
+				<!-- table.table>thead>tr>th*4^^tbody -->
 				<table class="table">
 					<thead>
 						<tr>
-							<td>아이디</td>
-							<td>비밀번호</td>
-							<td>이메일</td>
-							<td>가입시간</td>
+							<th>아이디</th>
+							<th>패스워드</th>
+							<th>이메일</th>
+							<th>가입일시</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${memberList }" var="member">
 							<tr>
-								<c:url value="/member/info" var="infoLink">
-									<c:param name="id" value="${member.id }"></c:param>
-								</c:url>
-								<td><a href="${infoLink }">${member.id }</a></td>
-								<td>************</td>
+								<td>
+									<c:url value="/member/info" var="infoLink">
+										<c:param value="${member.id }" name="id"></c:param>
+									</c:url>
+									<a href="${infoLink }">
+										${member.id }
+									</a>
+								</td>
+								<td>${member.password }</td>
 								<td>${member.email }</td>
 								<td>${member.inserted }</td>
 							</tr>
@@ -48,7 +49,17 @@
 			</div>
 		</div>
 	</div>
-	
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
