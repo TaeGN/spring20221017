@@ -12,43 +12,35 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<my:navBar active="memberList"></my:navBar>
-	<div class="container md-3">
+	<my:navBar active="memberInfo"></my:navBar>
+	<div class="container-md">
 		<div class="row">
 			<div class="col">
+			
 				<c:if test="${not empty message }">
 					<div class="alert alert-success">
 						${message }
 					</div>
 				</c:if>
-				<h1>회원 목록</h1>
-				<table class="table">
-					<thead>
-						<tr>
-							<td>아이디</td>
-							<td>비밀번호</td>
-							<td>이메일</td>
-							<td>가입시간</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${memberList }" var="member">
-							<tr>
-								<c:url value="/member/info" var="infoLink">
-									<c:param name="id" value="${member.id }"></c:param>
-								</c:url>
-								<td><a href="${infoLink }">${member.id }</a></td>
-								<td>************</td>
-								<td>${member.email }</td>
-								<td>${member.inserted }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+				
+				<h1>회원 정보 수정</h1>
+				<form action="" method="post">
+					아이디 <input type="text" value="${member.id }" readonly="readonly"> <br>
+					암호 <input type="text" value="${member.password }" name="password"> <br>
+					이메일 <input type="email" value="${member.email }" name="email"> <br>
+					가입일시 <input type="text" value="${member.inserted }" readonly="readonly"> <br>
+					<input type="submit" value="수정">
+				</form>
+				
+				<c:url value="/member/remove" var="removeUrl" />
+				<form action="${removeUrl }" method="post">
+					<input type="hidden" name="id" value="${member.id }">
+					<input type="submit" value="탈퇴">
+				</form>
+				
 			</div>
 		</div>
 	</div>
-	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
