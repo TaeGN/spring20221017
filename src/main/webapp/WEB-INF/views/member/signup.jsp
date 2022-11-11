@@ -18,14 +18,6 @@
 		<div class="row">
 			<div class="col">
 			
-				<!-- 변동유무 메세지 출력 -->
-				<c:if test="${not empty message }">
-					<div class="alert alert-success">
-						${message }
-					</div>
-				</c:if>
-			
-			
 				<h1>회원가입</h1>
 				
 				<form action="" method="post">
