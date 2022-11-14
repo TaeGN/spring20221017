@@ -39,7 +39,14 @@
 						<label for="" class="form-label">
 							암호 
 						</label>
-						<input class="form-control" type="password" value="${member.password }" name="password">
+						<input id="passwordInput1" class="form-control" type="text" value="${member.password }" name="password">
+					</div>
+					<div class="mb-3">
+						<label for="" class="form-label">
+							암호 확인 
+						</label>
+						<input id="passwordInput2" class="form-control" type="text" >
+						<div id="passwordText1" class="form-text"></div>
 					</div>
 					<div class="mb-3">
 						<label for="" class="form-label">
@@ -66,8 +73,8 @@
 					<input type="hidden" name="id" value="${member.id }">
 					<input type="hidden" name="oldPassword">
 				</form>
-				<input class="btn btn-warning" type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
-				<input class="btn btn-danger" type="submit" value="탈퇴" data-bs-toggle="modal" data-bs-target="#removeModal">
+				<input disabled="disabled" class="btn btn-warning" type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
+				<input disabled="disabled" class="btn btn-danger" type="submit" value="탈퇴" data-bs-toggle="modal" data-bs-target="#removeModal">
 			</div>
 		</div>
 	</div>
@@ -136,6 +143,27 @@ document.querySelector("#modalConfirmButton").addEventListener("click", function
 	// form을 submit
 	form.submit();	
 });
+
+// password 확인
+const passwordInput1 = document.querySelector("#passwordInput1");
+const passwordInput2 = document.querySelector("#passwordInput2");
+const passwordText1 = document.querySelector("#passwordText1");
+
+function matchPassword() {
+	const password1 = passwordInput1.value;
+	const password2 = passwordInput2.value;
+	
+	if(password1 == password2) {
+		passwordText1.innerText = "패스워드가 일치합니다.";
+	} else {
+		passwordText1.innerText = "패스워드가 일치하지 않습니다.";
+	}
+	
+}
+
+passwordInput1.addEventListener("keyup", matchPassword);
+passwordInput2.addEventListener("keyup", matchPassword);
+
 </script>
 </body>
 </html>

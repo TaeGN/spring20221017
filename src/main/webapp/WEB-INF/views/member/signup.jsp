@@ -26,11 +26,11 @@
 						</label>
 						
 						<div class="input-group">
-							<input class="form-control" type="text" name="id">
-							<button class="btn btn-outline-secondary" type="button">중복확인</button>
+							<input id="userIdInput1" class="form-control" type="text" name="id">
+							<button id="userIdExistButton1" class="btn btn-outline-secondary" type="button">중복확인</button>
 						</div>
 						
-						<div class="form-text">어떤 메시지....</div>
+						<div id="userIdText1" class="form-text"></div>
 						
 					</div>
 
@@ -72,11 +72,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 <script>
+
+const ctx = "${pageContext.request.contextPath}";
+
+document.querySelector("#userIdExistButton1").addEventListener("click", function() {
+	// 입력된 userId를
+	const userId = document.querySelector("#userIdInput1").value;
+	
+	// fetch 요청 보내고
+	fetch(ctx + "/member/existId/" + userId)
+		.then(res => res.json())
+		.then(data => {
+			// 응답 받아서 메세지 출력
+			document.querySelector("#userIdText1").innerText = data.message;
+		}); 
+});
+
+/* 패스워드 일치하는 지 확인 */
 const passwordInput1 = document.querySelector("#passwordInput1");
 const passwordInput2 = document.querySelector("#passwordInput2");
 const passwordText1 = document.querySelector("#passwordText1");
 
-/* 패스워드 일치하는 지 확인 */
 function matchPassword() {
 	const value1 = passwordInput1.value;
 	const value2 = passwordInput2.value;
@@ -90,6 +106,9 @@ function matchPassword() {
 
 passwordInput1.addEventListener("keyup", matchPassword);
 passwordInput2.addEventListener("keyup", matchPassword);
+/* 패스워드 일치하는 지 확인 끝 */
+
+
 </script>
 </body>
 </html>
