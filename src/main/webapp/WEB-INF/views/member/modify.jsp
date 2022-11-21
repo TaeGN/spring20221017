@@ -53,10 +53,10 @@
 							이메일 
 						</label>
 						<div class="input-group">
-							<input class="form-control" type="email" value="${member.email }" name="email">
-							<button type="button" class="btn btn-outline-secondary">중복확인</button>
+							<input id="emailInput1" class="form-control" type="email" value="${member.email }" name="email" data-old-value="${member.email }">
+							<button disabled="disabled" id="emailButton1" type="button" class="btn btn-outline-secondary">중복확인</button>
 						</div>
-						<div class="form-text">확인 메시지....</div>
+						<div id="emailText1" class="form-text"></div>
 					</div>
 					<div class="mb-3">
 						<label for="" class="form-label">
@@ -73,8 +73,8 @@
 					<input type="hidden" name="id" value="${member.id }">
 					<input type="hidden" name="oldPassword">
 				</form>
-				<input disabled="disabled" class="btn btn-warning" type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
-				<input disabled="disabled" class="btn btn-danger" type="submit" value="탈퇴" data-bs-toggle="modal" data-bs-target="#removeModal">
+				<input disabled="disabled" id="submitButton1" class="btn btn-warning" type="submit" value="수정" data-bs-toggle="modal" data-bs-target="#modifyModal">
+				<input class="btn btn-danger" type="submit" value="탈퇴" data-bs-toggle="modal" data-bs-target="#removeModal">
 			</div>
 		</div>
 	</div>
@@ -118,6 +118,9 @@
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script>
+const ctx = "${pageContext.request.contextPath}";
+
+
 <%-- 탈퇴 모달 확인 버튼 눌렀을 때 --%>
 document.querySelector("#modalConfirmButton2").addEventListener("click", function() {
 	const form = document.forms.form2;
@@ -144,21 +147,84 @@ document.querySelector("#modalConfirmButton").addEventListener("click", function
 	form.submit();	
 });
 
+
+let availablePassword = true;
+let availableEmail = true;
+
+function enableSubmitButton() {
+	const button = document.querySelector("#submitButton1")
+	
+	if(availablePassword && availableEmail) {
+		button.removeAttribute("disabled");
+	} else {
+		button.setAttribute("disabled", "");
+	}
+}
+
+<%-- 이메일 중복확인 --%>
+const emailInput1 = document.querySelector("#emailInput1");
+const emailButton1 = document.querySelector("#emailButton1");
+const emailText1 = document.querySelector("#emailText1");
+
+// 이메일 중복확인 버튼 클릭하면
+emailButton1.addEventListener("click", function() {
+	availableEmail = false;
+	const email = emailInput1.value;
+	
+	fetch(`\${ctx}/member/existEmail`, {
+		method : "post",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		body : JSON.stringify({email})
+	})
+		.then(res => res.json())
+		.then(data => {
+			emailText1.innerText = data.message;
+			
+			if(data.status == "not exist") {
+				availableEmail = true;
+				enableSubmitButton();
+			}
+		});
+});
+
+// 이메일 input의 값이 변경되었을 때
+emailInput1.addEventListener("keyup", function() {
+	const oldValue = emailInput1.dataset.oldValue;
+	const newValue = emailInput1.value;
+	if (oldValue == newValue) {
+		// 기존 이메일과 같으면 아무일도 일어나지 않음
+		emailText1.innerText = "";
+		emailButton1.setAttribute("disabled", "disabled");
+	} else {
+		// 기존 이메일과 다르면 중복체크 요청
+		emailText1.innerText = "이메일 중복확인을 해주세요.";
+		emailButton1.removeAttribute("disabled");
+		availableEmail = false;
+		enableSubmitButton();
+	}
+});
+
 // password 확인
 const passwordInput1 = document.querySelector("#passwordInput1");
 const passwordInput2 = document.querySelector("#passwordInput2");
 const passwordText1 = document.querySelector("#passwordText1");
 
 function matchPassword() {
+	availablePassword = false;
+	
 	const password1 = passwordInput1.value;
 	const password2 = passwordInput2.value;
 	
 	if(password1 == password2) {
 		passwordText1.innerText = "패스워드가 일치합니다.";
+		availablePassword = true;
 	} else {
 		passwordText1.innerText = "패스워드가 일치하지 않습니다.";
 	}
 	
+		enableSubmitButton();
 }
 
 passwordInput1.addEventListener("keyup", matchPassword);
